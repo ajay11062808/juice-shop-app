@@ -37,11 +37,11 @@ pipeline{
                 }*/
       stage('Semgrep Analysis') {
           steps {
-        withCredentials([string(credentialsId: 'semgrep-app-token', variable: 'SEMGREP_APP_TOKEN')]) {
-            sh '''
-            semgrep ci
-            '''   
-               }
+                     sh '''
+                       pwd
+                       ls -lrtha
+                       sudo semgrep scan --config auto --output Semgrep_results.json --json
+                       ''' 
             }
         }
     stage('SonarQube Analysis') {
