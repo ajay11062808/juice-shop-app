@@ -98,7 +98,9 @@ pipeline{
             // Create a container from the ZAP Docker image to access the volume
             def zapContainer = docker.image('ghcr.io/zaproxy/zaproxy:stable').run("-v zap-data:/zap/wrk")
             // Copy the ZAP reports from the Docker volume to the Jenkins workspace
-            sh "docker cp ${zapContainer.id}:/zap/wrk/report.html ."
+            sh "docker cp ${zapContainer.id}:/zap/wrk/report.html ." 
+            sh "docker cp ${zapContainer.id}:/zap/wrk/gen.conf ."
+            
             // Stop and remove the container
             zapContainer.stop()
                     
