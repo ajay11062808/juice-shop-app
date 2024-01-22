@@ -18,7 +18,7 @@ pipeline{
      stage('Checkout from SCM')
     {
       steps{
-          git branch:'main' , credentialsId:'github', url:'https://github.com/ajay11062808/juice-shop-app'
+          checkout scmGit(branches: [[name: '${ghprbActualCommit}']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', name: 'origin', refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', url: 'https://github.com/ajay11062808/juice-shop-app.git']])
           }
     }
     stage('Owasp Dependency Check'){
@@ -67,7 +67,7 @@ pipeline{
             stage('Checkout and Build Juice Shop') {
             steps {
                 // Clone the Juice Shop repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/ajay11062808/juice-shop-app.git']]])
+                checkout scmGit(branches: [[name: '${ghprbActualCommit}']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', name: 'origin', refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', url: 'https://github.com/ajay11062808/juice-shop-app.git']])
 
                 // Go into the cloned folder
                 dir('juice-shop-app') {
