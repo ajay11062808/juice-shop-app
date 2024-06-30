@@ -5,6 +5,7 @@ pipeline{
     maven 'Maven3'
     nodejs 'NodeJS20'
   }
+  
   parameters {
         string(name: 'application_url', defaultValue: 'http://10.0.0.4:3000', description: 'URL for ZAP attack')
     }
